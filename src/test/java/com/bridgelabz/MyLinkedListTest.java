@@ -3,8 +3,6 @@ package com.bridgelabz;
 import org.junit.Assert;
 import org.junit.Test;
 
-
-
 public class MyLinkedListTest {
     @Test
     public void given3NumbersWhenAddedToLinkedListShouldBeAddedToTop() {
@@ -98,11 +96,32 @@ public class MyLinkedListTest {
         MyNode<Integer> mySecondNode = new MyNode<>(30);
         MyNode<Integer> myThirdNode = new MyNode<>(70);
         MyLinkedList myLinkedList = new MyLinkedList();
-        myLinkedList.append(myFirstNode);
+        myLinkedList.add(myFirstNode);
         myLinkedList.append(mySecondNode);
         myLinkedList.append(myThirdNode);
         myLinkedList.printMyNodes();
         INode result = myLinkedList.search(30);
         Assert.assertEquals(30,result.getKey());
+    }
+
+    @Test
+    public void whenInsertingElementInBetweenShouldPassLinkedListResult() {
+        MyNode<Integer> myFirstNode = new MyNode<>(56);
+        MyNode<Integer> mySecondNode = new MyNode<>(30);
+        MyNode<Integer> myThirdNode = new MyNode<>(70);
+        MyNode<Integer> myForthNode = new MyNode<>(40);
+        MyLinkedList myLinkedList = new MyLinkedList();
+        myLinkedList.add(myFirstNode);
+        myLinkedList.append(mySecondNode);
+        myLinkedList.append(myThirdNode);
+        myLinkedList.printMyNodes();
+        INode Node =  myLinkedList.search(30);
+        myLinkedList.insert(Node,myForthNode);
+        myLinkedList.printMyNodes();
+        boolean result = myLinkedList.head.equals(myFirstNode) &&
+                myLinkedList.head.getNext().equals(mySecondNode) &&
+                myLinkedList.head.getNext().getNext().equals(myForthNode) &&
+                myLinkedList.tail.equals(myThirdNode);
+        Assert.assertTrue(result);
     }
 }

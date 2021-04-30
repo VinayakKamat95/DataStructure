@@ -9,6 +9,7 @@ public class MyNode<K> implements INode<K>{
         this.next = null;
     }
 
+
     @Override
     public INode getNext() {
         return next;
