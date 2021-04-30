@@ -1,8 +1,9 @@
 package com.bridgelabz;
 
-public class MyLinkedList {
-    public INode tail;
-    public INode head;
+
+public class MyLinkedList<K>{
+    public INode<K> tail;
+    public INode<K> head;
 
     public MyLinkedList() {
         this.head = null;
@@ -10,12 +11,12 @@ public class MyLinkedList {
     }
 
 
-    public void printMyNodes(){
+    public void printMyNodes() {
         StringBuffer myNodes = new StringBuffer("My Nodes : ");
         INode tempNode = head;
-        while(tempNode.getNext() != null){
+        while (tempNode.getNext() != null) {
             myNodes.append(tempNode.getKey());
-            if(!tempNode.equals(tail))
+            if (!tempNode.equals(tail))
                 myNodes.append("->");
             tempNode = tempNode.getNext();
         }
@@ -23,13 +24,13 @@ public class MyLinkedList {
         System.out.println(myNodes);
     }
 
-    public void add(INode<Integer> newNode) {
-        if(this.head == null){
+    public void add(INode<K> newNode) {
+        if (this.head == null) {
             this.head = newNode;
         }
-        if(this.tail == null){
+        if (this.tail == null) {
             this.tail = newNode;
-        }else{
+        } else {
             INode tempNode = this.head;
             this.head = newNode;
             this.head.setNext(tempNode);
@@ -37,12 +38,12 @@ public class MyLinkedList {
     }
 
     public void append(INode myNode) {
-        if(this.head == null){
+        if (this.head == null) {
             this.head = myNode;
         }
-        if(this.tail == null){
+        if (this.tail == null) {
             this.tail = myNode;
-        }else{
+        } else {
             this.tail.setNext(myNode);
             this.tail = myNode;
         }
@@ -54,19 +55,30 @@ public class MyLinkedList {
         newNode.setNext(tempNode);
     }
 
-    public INode popHead(){
+    public INode popHead() {
         INode tempNode = this.head;
         this.head = head.getNext();
         return tempNode;
     }
 
-    public INode popLast(){
+    public INode popLast() {
         INode tempNode = head;
-        while(!tempNode.getNext().equals(tail)){
+        while (!tempNode.getNext().equals(tail)) {
             tempNode = tempNode.getNext();
         }
         this.tail = tempNode;
         tempNode = tempNode.getNext();
         return tempNode;
     }
+
+    public INode search(K key){
+        INode tempNode = head;
+        while(tempNode.getNext() != null){
+            if(tempNode.getKey().equals(key)){return tempNode;}
+            tempNode = tempNode.getNext();
+        }
+        return tempNode;
+    }
+
 }
+
