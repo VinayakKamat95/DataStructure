@@ -2,10 +2,12 @@ package com.bridgelabz;
 
 
 public class MyLinkedList<K>{
+    private int size;
     public INode<K> tail;
     public INode<K> head;
 
     public MyLinkedList() {
+        size = 0;
         this.head = null;
         this.tail = null;
     }
@@ -34,7 +36,9 @@ public class MyLinkedList<K>{
             INode tempNode = this.head;
             this.head = newNode;
             this.head.setNext(tempNode);
+
         }
+        size++;
     }
 
     public void append(INode myNode) {
@@ -46,29 +50,30 @@ public class MyLinkedList<K>{
         } else {
             this.tail.setNext(myNode);
             this.tail = myNode;
-        }
+
+        }size++;
     }
 
     public void insert(INode myNode, INode newNode) {
         INode tempNode = myNode.getNext();
         myNode.setNext(newNode);
         newNode.setNext(tempNode);
+        size++;
     }
 
-    public INode popHead() {
-        INode tempNode = this.head;
+    public void popHead() {
         this.head = head.getNext();
-        return tempNode;
+        size--;
     }
 
-    public INode popLast() {
+    public void popLast() {
         INode tempNode = head;
         while (!tempNode.getNext().equals(tail)) {
             tempNode = tempNode.getNext();
         }
         this.tail = tempNode;
         tempNode.setNext(null);
-        return tempNode;
+        size--;
     }
 
     public INode search(K key){
@@ -80,5 +85,29 @@ public class MyLinkedList<K>{
         return tempNode;
     }
 
+    public void delete(INode delNode)
+    {
+        INode tempNode = head;
+        INode prevNode = null;
+        if(tempNode.getKey().equals(delNode.getKey())){
+            popHead();
+            return;
+        }
+        while(tempNode.getNext() != null){
+            if(tempNode.getKey().equals(delNode.getKey()))
+            {
+                prevNode.setNext(tempNode.getNext());
+                size--;
+                return;
+            }
+            prevNode = tempNode;
+            tempNode = tempNode.getNext();
+
+        }
+        popLast();
+    }
+    public void size(){
+        System.out.println(size);
+    }
 }
 
