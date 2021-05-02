@@ -147,6 +147,7 @@ public class MyLinkedListTest {
                 myLinkedList.tail.equals(myForthNode);
         Assert.assertTrue(result);
     }
+    
     @Test
     public void sortAscendList() {
         MyNode<Integer> myFirstNode = new MyNode<>(56);
