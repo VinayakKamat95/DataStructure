@@ -1,10 +1,10 @@
 package com.bridgelabz;
 
 
-public class MyLinkedList<K>{
+public class MyLinkedList<T>  {
     private int size;
-    public INode<K> tail;
-    public INode<K> head;
+    public INode<T> tail;
+    public INode<T> head;
 
     public MyLinkedList() {
         size = 0;
@@ -12,7 +12,7 @@ public class MyLinkedList<K>{
         this.tail = null;
     }
 
-
+    //printMyNodes() will display size of the linked list
     public void printMyNodes() {
         StringBuffer myNodes = new StringBuffer("My Nodes : ");
         INode tempNode = head;
@@ -26,7 +26,8 @@ public class MyLinkedList<K>{
         System.out.println(myNodes);
     }
 
-    public void add(INode<K> newNode) {
+    //add() will insert node after node in the linked list
+    public void add(INode<T> newNode) {
         if (this.head == null) {
             this.head = newNode;
         }
@@ -41,6 +42,7 @@ public class MyLinkedList<K>{
         size++;
     }
 
+    //append() will insert node before node in the linked list
     public void append(INode myNode) {
         if (this.head == null) {
             this.head = myNode;
@@ -50,10 +52,11 @@ public class MyLinkedList<K>{
         } else {
             this.tail.setNext(myNode);
             this.tail = myNode;
-
-        }size++;
+        }
+        size++;
     }
 
+    //insert() will insert node in the linked list given node at which need to insert and new Node
     public void insert(INode myNode, INode newNode) {
         INode tempNode = myNode.getNext();
         myNode.setNext(newNode);
@@ -61,12 +64,14 @@ public class MyLinkedList<K>{
         size++;
     }
 
+    //popLast() will delete head nodes from the linked list
     public void popHead() {
         this.head = head.getNext();
         size--;
     }
 
-    public void popLast() {
+    //popLast() will delete tail nodes from the linked list
+    public void popTail() {
         INode tempNode = head;
         while (!tempNode.getNext().equals(tail)) {
             tempNode = tempNode.getNext();
@@ -76,38 +81,65 @@ public class MyLinkedList<K>{
         size--;
     }
 
-    public INode search(K key){
+    //search() will search nodes from the linked list on given key value(Data) returns Node
+    public INode search(T key) {
         INode tempNode = head;
-        while(tempNode.getNext() != null){
-            if(tempNode.getKey().equals(key)){return tempNode;}
+        while (tempNode.getNext() != null) {
+            if (tempNode.getKey().equals(key)) {
+                return tempNode;
+            }
             tempNode = tempNode.getNext();
         }
         return tempNode;
     }
 
-    public void delete(INode delNode)
-    {
+    //delete() will delete nodes from the linked list
+    public void delete(INode delNode) {
         INode tempNode = head;
         INode prevNode = null;
-        if(tempNode.getKey().equals(delNode.getKey())){
+        if (tempNode.getKey().equals(delNode.getKey())) {
             popHead();
             return;
         }
-        while(tempNode.getNext() != null){
-            if(tempNode.getKey().equals(delNode.getKey()))
-            {
+        while (tempNode.getNext() != null) {
+            if (tempNode.getKey().equals(delNode.getKey())) {
                 prevNode.setNext(tempNode.getNext());
                 size--;
                 return;
             }
             prevNode = tempNode;
             tempNode = tempNode.getNext();
-
         }
-        popLast();
+        popTail();
     }
-    public void size(){
+
+    //size() will display size of the linked list
+    public void size() {
         System.out.println(size);
     }
-}
 
+    //sortList() will sort nodes of the list in ascending order
+    public <K extends Comparable<K>> void sortAscendList() {
+        //Node current will point to head
+        //Node index will point to next of head
+        INode<K> current = (INode<K>) head, index;
+        K temp = null;
+        if (head == null) {
+            return;
+        } else {
+            while (current.getNext() != null) {
+                index = current.getNext();
+
+                while (index.getNext() != null) {
+                    if (current.getKey().compareTo(index.getKey()) > 0) {
+                        temp = current.getKey();
+                        current.setKey(index.getKey());
+                        index.setKey(temp);
+                    }
+                    index = index.getNext();
+                }
+                current = current.getNext();
+            }
+        }
+    }
+}

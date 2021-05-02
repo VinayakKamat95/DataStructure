@@ -6,7 +6,7 @@ public interface INode<K> {
 
     INode<K> getNext();
     void set(INode next);
-
     void setNext(INode tempNode);
 
+    void setKey(K key);
 }
